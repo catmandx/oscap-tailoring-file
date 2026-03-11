@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xccdf:Tailoring xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2" id="xccdf_scap-workbench_tailoring_default">
+  <xccdf:benchmark href="/Users/cmdx/Downloads/scap-security-guide-0.1.80/ssg-rhel9-ds.xml"/>
+  <xccdf:version time="2026-03-11T09:51:36">1</xccdf:version>
+  <xccdf:Profile id="xccdf_vn.com.tcbs_profile_cis_server_l2" extends="xccdf_org.ssgproject.content_profile_cis_server_l2">
+    <xccdf:title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" override="true">CIS Red Hat Enterprise Linux 9 Benchmark for Level 2 - Server [CUSTOMIZED]</xccdf:title>
+    <xccdf:description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" override="true">This profile defines a baseline that aligns to the "Level 2 - Server"
+configuration from the Center for Internet Security® Red Hat Enterprise
+Linux 9 Benchmark™, v2.0.0, released 2024-06-20.
+
+This profile includes Center for Internet Security®
+Red Hat Enterprise Linux 9 CIS Benchmarks™ content.</xccdf:description>
+    <xccdf:select idref="xccdf_org.ssgproject.content_group_aide" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_file_audit_tools_permissions" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_file_audit_tools_ownership" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_file_audit_tools_group_ownership" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_aide_verify_ext_attributes" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_aide_verify_acls" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_aide_use_fips_hashes" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_aide_scan_notification" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_aide_periodic_cron_checking" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_aide_check_audit_tools" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_aide_build_database" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_aide_installed" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_group_software-integrity" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_tmp" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_home" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_var" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_var_log" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_var_log_audit" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_var_tmp" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_dev_shm" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_group_disk_partitioning" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_grub2_password" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_nftables_installed" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_service_firewalld_enabled" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_firewalld_installed" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_group_firewalld_activation" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_service_nftables_disabled" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_group_network-nftables" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_firewalld_loopback_traffic_restricted" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_firewalld_loopback_traffic_trusted" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_group_ruleset_modifications" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_group_network-firewalld" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_sudo_remove_nopasswd" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_pam_pwquality_installed" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_account_password_pam_faillock_password_auth" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_account_password_pam_faillock_system_auth" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_pwhistory_remember_password_auth" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_pwhistory_remember_system_auth" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_passwords_pam_faillock_deny" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_passwords_pam_faillock_deny_root" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_passwords_pam_faillock_unlock_time" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_difok" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_minlen" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_minclass" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_maxrepeat" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_maxsequence" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_dictcheck" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_enforce_root" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_group_password_quality_pwquality" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_group_password_quality" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_pwhistory_enforce_for_root" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_group_locking_out_password_attempts" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_maximum_age_login_defs" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_set_max_life_existing" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_minimum_age_login_defs" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_set_min_life_existing" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_set_warn_age_existing" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_warn_age_login_defs" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_set_post_pw_existing" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_group_password_expiration" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_account_disable_post_pw_expiration" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_last_change_is_in_past" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_ensure_root_password_configured" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_no_files_unowned_by_user" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_file_permissions_ungroupowned" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_no_empty_passwords_etc_shadow" selected="false"/>
+  </xccdf:Profile>
+</xccdf:Tailoring>
