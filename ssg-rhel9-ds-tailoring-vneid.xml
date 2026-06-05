@@ -389,5 +389,38 @@ Red Hat Enterprise Linux 9 CIS Benchmarks™ content.</xccdf:description>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_audit-libs_installed" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_audit-audispd-plugins_installed" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_audispd-plugins_installed" selected="false"/>
+<!--   
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_configure_custom_crypto_policy_cis" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_sudo_add_use_pty" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_sudo_require_authentication" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_account_password_pam_faillock_password_auth" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_account_password_pam_faillock_system_auth" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_pwhistory_enforce_for_root" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_pwhistory_remember_password_auth" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_pwhistory_remember_system_auth" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_faillock_deny" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_faillock_deny_root" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_faillock_unlock_time" selected="false"/> -->
+    
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_account_unique_id" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_no_empty_passwords" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_no_uid_except_zero" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_root_gid_zero" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_ensure_pam_wheel_group_empty" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_no_password_auth_for_systemaccounts" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_shelllogin_for_systemaccounts" selected="false"/>
+
+    <!-- <xccdf:select idref="xccdf_org.ssgproject.content_rule_use_pam_wheel_group_for_su" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_tmout" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_file_permissions_unauthorized_world_writable" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_file_permissions_ungroupowned" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_no_files_unowned_by_user" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_selinux_state" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_selinux_not_disabled" selected="false"/> -->
+    
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_sshd_disable_root_login" selected="false"/>
+
+  
+  
   </xccdf:Profile>
 </xccdf:Tailoring>
