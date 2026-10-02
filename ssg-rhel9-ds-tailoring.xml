@@ -73,6 +73,7 @@
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_postfix_installed" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_group_postfix_client" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_postfix_network_listening_disabled" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_sshd_limit_user_access" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_dac_modification_chmod" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_dac_modification_chown" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_dac_modification_fchmod" selected="false"/>
