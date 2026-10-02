@@ -19,6 +19,7 @@
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_var_log" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_var_log_audit" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_var_tmp" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_sudo_require_authentication" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_pam_pwquality_installed" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_unix_enabled" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_pwhistory_enabled" selected="false"/>
