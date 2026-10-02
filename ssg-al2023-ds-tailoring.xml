@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xccdf:Tailoring xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2" id="xccdf_scap-workbench_tailoring_default">
-  <xccdf:benchmark href="ssg-rhel9-ds.xml"/>
+  <xccdf:benchmark href="ssg-al2023-ds.xml"/>
   <xccdf:version time="2026-10-02T09:00:00">1</xccdf:version>
-  <xccdf:Profile id="xccdf_vn.com.tcbs_profile_rhel9_cis_l2_tcvn14423" extends="xccdf_org.ssgproject.content_profile_cis">
-    <xccdf:title xmlns:xhtml="http://www.w3.org/1999/xhtml" override="true" xml:lang="en-US">CIS Red Hat Enterprise Linux 9 Benchmark for Level 2 - Server [TCBS TCVN 14423:2026 Customized]</xccdf:title>
-    <xccdf:description xmlns:xhtml="http://www.w3.org/1999/xhtml" override="true" xml:lang="en-US">Hồ sơ tuân thủ TCVN 14423:2026 (Cấp độ 3 &amp; 4) trên nền tảng CIS RHEL 9 Level 2 Server. Tích hợp Biện pháp Kiểm soát Bù trừ: Palo Alto Networks Cortex XDR, CyberArk PAM (User Admin NOPASSWD sudo), AWS Network Firewall Inbound/Outbound, AWS Security Groups (VPC/Subnets), 100% AWS EBS/RDS &amp; VMware Encryption at Rest, và Lưu trữ nhật ký Amazon S3 WORM Object Lock.</xccdf:description>
+  <xccdf:Profile id="xccdf_vn.com.tcbs_profile_al2023_cis_l2_tcvn14423" extends="xccdf_org.ssgproject.content_profile_cis">
+    <xccdf:title xmlns:xhtml="http://www.w3.org/1999/xhtml" override="true" xml:lang="en-US">CIS Amazon Linux 2023 Benchmark for Level 2 - Server [TCBS TCVN 14423:2026 Customized]</xccdf:title>
+    <xccdf:description xmlns:xhtml="http://www.w3.org/1999/xhtml" override="true" xml:lang="en-US">Hồ sơ tuân thủ TCVN 14423:2026 (Cấp độ 3 &amp; 4) trên nền tảng CIS Amazon Linux 2023 Level 2 Server. Tích hợp Biện pháp Kiểm soát Bù trừ: Palo Alto Networks Cortex XDR, CyberArk PAM (User Admin NOPASSWD sudo), AWS Network Firewall Inbound/Outbound, AWS Security Groups (VPC/Subnets), 100% AWS EBS/RDS Encryption at Rest (KMS AES-256), và Lưu trữ nhật ký Amazon S3 WORM Object Lock.</xccdf:description>
     <xccdf:select idref="xccdf_org.ssgproject.content_group_software-integrity" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_group_aide" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_aide_installed" selected="false"/>
@@ -19,28 +19,18 @@
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_var_log" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_var_log_audit" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_var_tmp" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_sudo_remove_nopasswd" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_pam_pwquality_installed" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_modules_in_authselect_profile" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_account_password_pam_faillock_password_auth" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_account_password_pam_faillock_system_auth" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_pwhistory_enforce_for_root" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_pwhistory_remember_password_auth" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_pwhistory_remember_system_auth" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_passwords_pam_faillock_deny" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_passwords_pam_faillock_even_deny_root_or_root_unlock_time" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_passwords_pam_faillock_unlock_time" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_group_password_quality" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_group_password_quality_pwquality" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_dictcheck" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_difok" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_enforce_root" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_maxrepeat" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_maxsequence" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_minclass" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_minlen" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_retry" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_group_set_password_hashing_algorithm" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_set_password_hashing_algorithm_libuserconf" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_set_password_hashing_algorithm_logindefs" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_set_password_hashing_algorithm_passwordauth" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_set_password_hashing_algorithm_systemauth" selected="false"/>
@@ -54,19 +44,19 @@
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_warn_age_login_defs" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_set_post_pw_existing" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_last_change_is_in_past" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_unix_no_remember" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_no_empty_passwords_etc_shadow" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_ensure_pam_wheel_group_empty" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_grub2_password" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_group_network-firewalld" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_group_firewalld_activation" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_firewalld_installed" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_service_firewalld_enabled" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_firewalld_loopback_traffic_restricted" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_firewalld_loopback_traffic_trusted" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_set_firewalld_default_zone" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_group_network-nftables" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_nftables_installed" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_service_nftables_disabled" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_set_nftables_table" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_dac_modification_chmod" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_dac_modification_chown" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_dac_modification_fchmod" selected="false"/>
