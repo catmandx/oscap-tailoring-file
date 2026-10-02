@@ -16,8 +16,9 @@ Các quy tắc được tinh chỉnh tắt (`selected="false"`) trong các tệp
 - **Mã hóa Hạ tầng 100% (Encryption at Rest)**: 100% AWS EBS & RDS Encryption qua KMS AES-256, VMware VM/vSAN Encryption -> Thay thế LUKS `encrypt_partitions`.
 - **Lưu trữ Nhật ký Bất biến**: Streaming log ra Amazon S3 Object Lock (Compliance Mode / WORM 01 năm) & SIEM SOC 24/7 + LVM auto-expand -> Thay thế chia nhỏ phân vùng ổ đĩa cục bộ.
 - **Kiến trúc Mạng Đa lớp**: Phân vùng VPC -> Subnets, Security Groups (Default-Deny), AWS Network Firewall (Inbound & Outbound NFW) -> Thay thế tường lửa host (`firewalld`, `nftables`, `ufw`).
-- **CyberArk PAM**: Quản lý mật khẩu Vaulting, OTP 24h, MFA 2FA, Session Recording, cấp quyền `NOPASSWD sudo` cho user admin được PAM quản lý -> Thay thế chính sách password/faillock cục bộ gây nghẽn tài khoản dịch vụ.
-- **Auditd Tối ưu (Chống nghẽn I/O)**: Vô hiệu hóa toàn bộ các rule bắt syscalls sửa/xóa/mở file thông thường; giữ lại 5 nhóm sự kiện kiểm toán lõi (Danh tính, Sudoers, Process creation + param, Mạng/DNS, Tác động file log) kết hợp Cortex XDR.
+- **CyberArk PAM**: Quản lý mật khẩu Vaulting, OTP 24h, MFA 2FA, Session Recording, cấp quyền `NOPASSWD sudo` cho user admin được PAM quản lý, khóa trực tiếp password của `root` (bỏ qua `ensure_root_password_configured` vì phục hồi qua Cloud Console/IAM/Snapshot) -> Thay thế chính sách password/faillock cục bộ gây nghẽn tài khoản dịch vụ.
+- **Auditd & Log Shipping Tập trung**: Vô hiệu hóa toàn bộ các rule bắt syscalls sửa/xóa/mở file thông thường; giữ lại 5 nhóm sự kiện kiểm toán lõi kết hợp Cortex XDR. Bỏ qua `package_systemd-journal-remote_installed` vì tổ chức sử dụng **Elastic Filebeat** / Vector để stream log lên S3 & SIEM.
+- **Loại bỏ Local Mail Transfer Agent**: Bỏ qua `package_postfix_installed` và các cấu hình Postfix cục bộ vì máy chủ nghiệp vụ không có nhu cầu gửi/nhận email nội bộ (toàn bộ cảnh báo chuyển tiếp qua SIEM / APM / Webhook tập trung).
 
 ---
 
