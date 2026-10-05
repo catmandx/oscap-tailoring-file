@@ -46,3 +46,5 @@ Ngoài việc thay đổi giá trị của các biến XCCDF nêu trên, TCBS á
 13. **`package_postfix_installed`**: Không cài MTA cục bộ, chuyển tiếp cảnh báo qua SIEM / APM / SES.
 14. **`package_systemd-journal-remote_installed`**: Sử dụng Elastic Filebeat / Vector stream log trực tiếp.
 15. **`sshd_limit_user_access`**: Quản lý truy cập và phân quyền tập trung qua CyberArk PAM RBAC Gateway.
+16. **`all_apparmor_profiles_enforced`**: Tắt quy tắc cưỡng chế tự động toàn bộ profile trên Ubuntu 24.04 để ngăn ngừa lỗi công cụ `aa-enforce` tự ý xóa bỏ cờ `flags=(unconfined)` trong các shim profile của hệ điều hành làm tê liệt `runc` và container engine (Prevent aa-enforce unconfined removal bug). 117/118 profiles hệ thống và `docker-default` vẫn duy trì chế độ Enforce bảo vệ hệ thống; quy trình kiểm toán chuyển sang chạy `aa-status` thủ công định kỳ.
+17. **`kernel_module_overlayfs_disabled`**: Cho phép nạp hạt nhân `overlay` phục vụ Docker CE và Kubernetes containerd chạy storage driver `overlay2`. (Bù trừ: Phân quyền thư mục lưu trữ container và cách ly namespace).
