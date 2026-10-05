@@ -76,6 +76,7 @@
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_sysctl_net_ipv4_ip_forward" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_no_files_or_dirs_ungroupowned" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_no_files_or_dirs_unowned_by_user" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_kernel_module_overlayfs_disabled" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_group_postfix_client" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_postfix_network_listening_disabled" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_sshd_limit_user_access" selected="false"/>

@@ -88,6 +88,7 @@
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_set_ufw_default_rule" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_set_ufw_loopback_traffic" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_ufw_rules_for_open_ports" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_kernel_module_overlayfs_disabled" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_group_postfix_client" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_postfix_network_listening_disabled" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_sshd_limit_user_access" selected="false"/>
