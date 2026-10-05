@@ -63,6 +63,7 @@
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_unix_no_remember" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_no_empty_passwords_etc_shadow" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_ensure_pam_wheel_group_empty" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_all_apparmor_profiles_enforced" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_grub2_password" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_grub2_uefi_password" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_systemd-journal-remote_installed" selected="false"/>
@@ -109,5 +110,6 @@
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_unsuccessful_file_modification_openat" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_unsuccessful_file_modification_truncate" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_login_events_faillock" selected="false"/>
+    <xccdf:set-value idref="xccdf_org.ssgproject.content_value_var_apparmor_mode">complain</xccdf:set-value>
   </xccdf:Profile>
 </xccdf:Tailoring>

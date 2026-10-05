@@ -23,6 +23,7 @@ Các quy tắc được tinh chỉnh tắt (`selected="false"`) trong các tệp
 - **Khơi thông Tự động hóa Ansible & CI/CD (`sudo_add_use_pty`)**: Bỏ qua quy tắc bắt buộc PTY để các công cụ tự động hóa không tương tác (Ansible pipelining, Jenkins/GitLab runners, cron batch jobs) thực thi sudo thông suốt. Bù trừ bằng CyberArk PAM full session video recording và `/var/log/sudo.log`.
 - **Hỗ trợ Multi-NIC, VPN & K8s CNI Overlay (`rp_filter = 1`)**: Bỏ qua kiểm tra Strict Reverse Path Filtering để tránh rớt gói tin định tuyến không đối xứng (asymmetric routing). Kiểm soát bằng cơ chế chống giả mạo IP nguồn (Anti-spoofing) tại tầng hypervisor của AWS VPC.
 - **Chế độ SELinux Permissive (Giai đoạn Quan sát 1–2 tháng)**: Gán giá trị biến `var_selinux_state = permissive` trong hồ sơ Tailoring để nhân Linux ghi nhận toàn bộ vi phạm AVC Denials vào `/var/log/audit/audit.log` mà không làm crash ứng dụng Production; phục vụ hoàn thiện Custom Policy Modules trước khi chuyển sang `enforcing`. Chi tiết: [Kế hoạch Giám sát SELinux](file:///Users/cmdx/work/tcbs/TCVN/KE_HOACH_GIAM_SAT_SELINUX_PERMISSIVE_DEN_ENFORCING.md).
+- **Chế độ AppArmor Complain (Giai đoạn Quan sát 1–2 tháng trên Ubuntu 24.04)**: Gán giá trị biến `var_apparmor_mode = complain` và bỏ qua quy tắc `all_apparmor_profiles_enforced` trong hồ sơ Tailoring Ubuntu 24.04. Giúp hệ thống ghi log vi phạm đường dẫn vào `/var/log/audit/audit.log` và `/var/log/syslog` mà không chặn ứng dụng; phục vụ tinh chỉnh profile qua `aa-logprof` trước khi chuyển sang chế độ Enforce.
 
 ---
 
