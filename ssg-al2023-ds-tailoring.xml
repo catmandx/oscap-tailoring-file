@@ -22,31 +22,8 @@
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_sudo_add_use_pty" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_account_password_pam_faillock_password_auth" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_account_password_pam_faillock_system_auth" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_pwhistory_remember_password_auth" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_pwhistory_remember_system_auth" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_passwords_pam_faillock_deny" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_passwords_pam_faillock_unlock_time" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_group_password_quality" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_group_password_quality_pwquality" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_minclass" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_minlen" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_retry" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_group_set_password_hashing_algorithm" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_set_password_hashing_algorithm_logindefs" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_set_password_hashing_algorithm_passwordauth" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_set_password_hashing_algorithm_systemauth" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_group_account_expiration" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_account_disable_post_pw_expiration" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_group_password_expiration" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_maximum_age_login_defs" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_minimum_age_login_defs" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_set_max_life_existing" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_set_min_life_existing" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_warn_age_login_defs" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_set_post_pw_existing" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_last_change_is_in_past" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_no_empty_passwords_etc_shadow" selected="false"/>
-    <xccdf:select idref="xccdf_org.ssgproject.content_rule_ensure_pam_wheel_group_empty" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_ensure_root_password_configured" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_socket_systemd-journal-remote_disabled" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_group_network-firewalld" selected="false"/>
@@ -85,6 +62,8 @@
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_unsuccessful_file_modification_openat" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_unsuccessful_file_modification_truncate" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_login_events_faillock" selected="false"/>
+    <xccdf:set-value idref="xccdf_org.ssgproject.content_value_var_password_pam_remember">10</xccdf:set-value>
+    <xccdf:set-value idref="xccdf_org.ssgproject.content_value_var_accounts_maximum_age_login_defs">60</xccdf:set-value>
     <xccdf:set-value idref="xccdf_org.ssgproject.content_value_var_selinux_state">permissive</xccdf:set-value>
   </xccdf:Profile>
 </xccdf:Tailoring>
