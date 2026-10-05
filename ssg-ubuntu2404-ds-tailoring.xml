@@ -19,6 +19,7 @@
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_var_log" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_var_log_audit" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_partition_for_var_tmp" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_sudo_add_use_pty" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_sudo_require_authentication" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_pam_pwquality_installed" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_password_pam_unix_enabled" selected="false"/>
@@ -66,6 +67,9 @@
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_grub2_uefi_password" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_systemd-journal-remote_installed" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_socket_systemd-journal-remote_disabled" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_sysctl_net_ipv4_conf_all_rp_filter" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_sysctl_net_ipv4_conf_default_rp_filter" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_sysctl_net_ipv4_ip_forward" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_group_network-nftables" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_nftables_installed" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_service_nftables_enabled" selected="false"/>
