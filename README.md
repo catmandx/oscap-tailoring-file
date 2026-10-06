@@ -82,12 +82,19 @@ oscap xccdf eval \
 
 ## 3. Hướng dẫn Lệnh Tự động Khắc phục (Auto Remediation Commands)
 
-Khi hệ thống phát hiện các điểm chưa đạt chuẩn tuân thủ, OpenSCAP cung cấp khả năng tự động khắc phục (Remediation) dựa trên các kịch bản định sẵn trong Datastream. Nhờ việc sử dụng **Tailoring File**, toàn bộ các can thiệp có rủi ro cao (như xóa cờ unconfined của AppArmor, chặn IP Forwarding của Docker/K8s, khóa tài khoản tự động faillock) đều **được loại trừ hoàn toàn** và các giá trị cấu hình mật khẩu TCVN 6.6.2.2 sẽ được áp dụng chuẩn xác.
+Khi hệ thống phát hiện các điểm chưa đạt chuẩn tuân thủ, OpenSCAP cung cấp khả năng tự động khắc phục (Remediation). 
 
-Có 3 phương thức thực hiện Remediation tùy theo mức độ kiểm soát rủi ro:
+> [!NOTE]
+> **Cơ chế mặc định của OpenSCAP**:
+> - Khi thực hiện remediation (dù chạy trực tiếp `--remediate` hay qua file `results.xml`), OpenSCAP **CHỈ thực thi kịch bản sửa lỗi cho các quy tắc bị `fail`**. Các quy tắc đã `pass`, `notapplicable` hoặc được tắt (`selected="false"` trong Tailoring file) **sẽ KHÔNG bị can thiệp**.
+> - Nhờ sử dụng **Tailoring File**, toàn bộ các rủi ro vận hành (như xóa cờ unconfined của AppArmor, chặn IP Forwarding của Docker/K8s, khóa tài khoản tự động faillock) đều **được loại trừ 100%**.
+
+Dưới đây là 3 phương thức thực hiện Remediation tùy theo kịch bản vận hành:
+
+---
 
 ### 3.1. Phương thức 1: Quét và Tự động Khắc phục Trực tiếp (`--remediate`)
-Tự động quét và áp dụng ngay các fix script cho các quy tắc bị Fail (chỉ áp dụng cho các rule được BẬT trong Tailoring file).
+*Cơ chế:* Bộ máy quét sẽ kiểm tra từng quy tắc. Nếu quy tắc **`fail`**, nó sẽ chạy ngay kịch bản fix cho quy tắc đó; nếu **`pass`**, nó sẽ bỏ qua.
 
 #### A. Amazon Linux 2023 (AL2023)
 ```bash
@@ -143,90 +150,81 @@ oscap xccdf eval \
 
 ---
 
-### 3.2. Phương thức 2: Xuất Kịch bản Khắc phục để Review / Dry-run trước khi chạy (Khuyến nghị cho Production)
-Đây là phương thức an toàn nhất cho môi trường Production, cho phép DevOps / SysAdmin kiểm tra (review) toàn bộ nội dung lệnh sẽ can thiệp vào máy chủ trước khi thực thi.
+### 3.2. Phương thức 2: Xuất Kịch bản Khắc phục CHỈ CHO CÁC CHECK BỊ FAIL (Khuyến nghị Chuẩn Production)
+Để kiểm soát tuyệt đối các thay đổi trên máy chủ Production, quy trình chuẩn gồm 2 bước:
+1. **Bước 1**: Quét hệ thống và lưu kết quả ra file XML (`/tmp/xccdf-results-<os>.xml` như hướng dẫn ở Mục 2).
+2. **Bước 2**: Truyền file kết quả `xccdf-results-<os>.xml` vào lệnh `generate fix`. OpenSCAP sẽ **CHỈ trích xuất các đoạn fix cho đúng những quy tắc có kết quả `fail`** trong phiên quét đó!
 
-#### A. Xuất Kịch bản Bash Remediation Script (`.sh`)
+#### A. Xuất Bash Script CHỈ cho các Check bị Fail:
 ```bash
 # 1. Amazon Linux 2023:
 oscap xccdf generate fix \
-  --tailoring-file ssg-al2023-ds-tailoring.xml \
-  --profile xccdf_vn.com.tcbs_profile_al2023_cis_l2_tcvn14423 \
   --fix-type bash \
-  --output /tmp/remediate-al2023.sh \
-  ssg-al2023-ds.xml
+  --output /tmp/remediate-failed-only-al2023.sh \
+  /tmp/xccdf-results-al2023.xml
 
 # 2. Ubuntu Linux 24.04:
 oscap xccdf generate fix \
-  --tailoring-file ssg-ubuntu2404-ds-tailoring.xml \
-  --profile xccdf_vn.com.tcbs_profile_ubuntu2404_cis_l2_tcvn14423 \
   --fix-type bash \
-  --output /tmp/remediate-ubuntu2404.sh \
-  ssg-ubuntu2404-ds.xml
+  --output /tmp/remediate-failed-only-ubuntu2404.sh \
+  /tmp/xccdf-results-ubuntu2404.xml
 
 # 3. RHEL 8:
 oscap xccdf generate fix \
-  --tailoring-file ssg-rhel8-ds-tailoring.xml \
-  --profile xccdf_vn.com.tcbs_profile_rhel8_cis_l2_tcvn14423 \
   --fix-type bash \
-  --output /tmp/remediate-rhel8.sh \
-  ssg-rhel8-ds.xml
+  --output /tmp/remediate-failed-only-rhel8.sh \
+  /tmp/xccdf-results-rhel8.xml
 
 # 4. RHEL 9:
 oscap xccdf generate fix \
-  --tailoring-file ssg-rhel9-ds-tailoring.xml \
-  --profile xccdf_vn.com.tcbs_profile_rhel9_cis_l2_tcvn14423 \
   --fix-type bash \
-  --output /tmp/remediate-rhel9.sh \
-  ssg-rhel9-ds.xml
+  --output /tmp/remediate-failed-only-rhel9.sh \
+  /tmp/xccdf-results-rhel9.xml
 
 # Thao tác Review và Thực thi Bash Script:
-less /tmp/remediate-<os>.sh        # Kiểm tra nội dung script
-sudo bash /tmp/remediate-<os>.sh   # Chạy khắc phục
+less /tmp/remediate-failed-only-<os>.sh        # Xem trước đúng các lệnh fix cần chạy
+sudo bash /tmp/remediate-failed-only-<os>.sh   # Thực thi áp dụng
 ```
 
-#### B. Xuất Kịch bản Ansible Playbook (`.yml`)
+#### B. Xuất Ansible Playbook CHỈ cho các Check bị Fail:
 ```bash
 # 1. Amazon Linux 2023:
 oscap xccdf generate fix \
-  --tailoring-file ssg-al2023-ds-tailoring.xml \
-  --profile xccdf_vn.com.tcbs_profile_al2023_cis_l2_tcvn14423 \
   --fix-type ansible \
-  --output /tmp/remediate-al2023.yml \
-  ssg-al2023-ds.xml
+  --output /tmp/remediate-failed-only-al2023.yml \
+  /tmp/xccdf-results-al2023.xml
 
 # 2. Ubuntu Linux 24.04:
 oscap xccdf generate fix \
-  --tailoring-file ssg-ubuntu2404-ds-tailoring.xml \
-  --profile xccdf_vn.com.tcbs_profile_ubuntu2404_cis_l2_tcvn14423 \
   --fix-type ansible \
-  --output /tmp/remediate-ubuntu2404.yml \
-  ssg-ubuntu2404-ds.xml
+  --output /tmp/remediate-failed-only-ubuntu2404.yml \
+  /tmp/xccdf-results-ubuntu2404.xml
 
 # 3. RHEL 8:
 oscap xccdf generate fix \
-  --tailoring-file ssg-rhel8-ds-tailoring.xml \
-  --profile xccdf_vn.com.tcbs_profile_rhel8_cis_l2_tcvn14423 \
   --fix-type ansible \
-  --output /tmp/remediate-rhel8.yml \
-  ssg-rhel8-ds.xml
+  --output /tmp/remediate-failed-only-rhel8.yml \
+  /tmp/xccdf-results-rhel8.xml
 
 # 4. RHEL 9:
 oscap xccdf generate fix \
-  --tailoring-file ssg-rhel9-ds-tailoring.xml \
-  --profile xccdf_vn.com.tcbs_profile_rhel9_cis_l2_tcvn14423 \
   --fix-type ansible \
-  --output /tmp/remediate-rhel9.yml \
-  ssg-rhel9-ds.xml
+  --output /tmp/remediate-failed-only-rhel9.yml \
+  /tmp/xccdf-results-rhel9.xml
 
-# Thao tác chạy qua Ansible cục bộ hoặc phát tán qua CI/CD / AWX:
-ansible-playbook -i localhost, -c local /tmp/remediate-<os>.yml
+# Thao tác chạy Playbook qua Ansible:
+ansible-playbook -i localhost, -c local /tmp/remediate-failed-only-<os>.yml
 ```
+
+> [!TIP]
+> **Khác biệt khi truyền Datastream XML vs Results XML**:
+> - Nếu truyền file Datastream gốc (`generate fix ... ssg-<os>-ds.xml`): OpenSCAP sẽ xuất fix cho **toàn bộ profile** (kể cả những rule hệ thống đã pass). Dùng khi muốn build image sạch từ đầu.
+> - Nếu truyền file kết quả scan (`generate fix ... xccdf-results.xml`): OpenSCAP sẽ **CHỈ xuất fix cho các quy tắc đang bị `fail`** trên máy chủ mục tiêu.
 
 ---
 
 ### 3.3. Phương thức 3: Khắc phục Ngoại tuyến từ Kết quả Quét Trước đó (`oscap xccdf remediate`)
-Nếu đã có tệp kết quả quét `/tmp/xccdf-results-<os>.xml` từ bước đánh giá, có thể thực hiện khắc phục trực tiếp trên kết quả đó mà không cần đánh giá lại toàn bộ từ đầu:
+Nếu đã có tệp kết quả quét `/tmp/xccdf-results-<os>.xml` từ bước đánh giá, có thể thực hiện khắc phục trực tiếp trên kết quả đó. OpenSCAP sẽ **chỉ chạy fix cho các mục `fail`** trong file XML này mà không cần đánh giá lại toàn bộ hệ thống từ đầu:
 ```bash
 oscap xccdf remediate \
   --results /tmp/xccdf-remediation-results-<os>.xml \
