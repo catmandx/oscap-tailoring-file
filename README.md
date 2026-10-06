@@ -80,7 +80,178 @@ oscap xccdf eval \
 
 ---
 
-## 3. Danh mục Profile ID Tra cứu
+## 3. Hướng dẫn Lệnh Tự động Khắc phục (Auto Remediation Commands)
+
+Khi hệ thống phát hiện các điểm chưa đạt chuẩn tuân thủ, OpenSCAP cung cấp khả năng tự động khắc phục (Remediation) dựa trên các kịch bản định sẵn trong Datastream. Nhờ việc sử dụng **Tailoring File**, toàn bộ các can thiệp có rủi ro cao (như xóa cờ unconfined của AppArmor, chặn IP Forwarding của Docker/K8s, khóa tài khoản tự động faillock) đều **được loại trừ hoàn toàn** và các giá trị cấu hình mật khẩu TCVN 6.6.2.2 sẽ được áp dụng chuẩn xác.
+
+Có 3 phương thức thực hiện Remediation tùy theo mức độ kiểm soát rủi ro:
+
+### 3.1. Phương thức 1: Quét và Tự động Khắc phục Trực tiếp (`--remediate`)
+Tự động quét và áp dụng ngay các fix script cho các quy tắc bị Fail (chỉ áp dụng cho các rule được BẬT trong Tailoring file).
+
+#### A. Amazon Linux 2023 (AL2023)
+```bash
+oscap xccdf eval \
+  --remediate \
+  --tailoring-file ssg-al2023-ds-tailoring.xml \
+  --profile xccdf_vn.com.tcbs_profile_al2023_cis_l2_tcvn14423 \
+  --oval-results \
+  --results /tmp/xccdf-results-al2023-remediated.xml \
+  --results-arf /tmp/arf-al2023-remediated.xml \
+  --report /tmp/report-al2023-remediated.html \
+  ssg-al2023-ds.xml
+```
+
+#### B. Ubuntu Linux 24.04 LTS (Noble Numbat)
+```bash
+oscap xccdf eval \
+  --remediate \
+  --tailoring-file ssg-ubuntu2404-ds-tailoring.xml \
+  --profile xccdf_vn.com.tcbs_profile_ubuntu2404_cis_l2_tcvn14423 \
+  --oval-results \
+  --results /tmp/xccdf-results-ubuntu2404-remediated.xml \
+  --results-arf /tmp/arf-ubuntu2404-remediated.xml \
+  --report /tmp/report-ubuntu2404-remediated.html \
+  ssg-ubuntu2404-ds.xml
+```
+
+#### C. Red Hat Enterprise Linux 8 (RHEL 8)
+```bash
+oscap xccdf eval \
+  --remediate \
+  --tailoring-file ssg-rhel8-ds-tailoring.xml \
+  --profile xccdf_vn.com.tcbs_profile_rhel8_cis_l2_tcvn14423 \
+  --oval-results \
+  --results /tmp/xccdf-results-rhel8-remediated.xml \
+  --results-arf /tmp/arf-rhel8-remediated.xml \
+  --report /tmp/report-rhel8-remediated.html \
+  ssg-rhel8-ds.xml
+```
+
+#### D. Red Hat Enterprise Linux 9 (RHEL 9)
+```bash
+oscap xccdf eval \
+  --remediate \
+  --tailoring-file ssg-rhel9-ds-tailoring.xml \
+  --profile xccdf_vn.com.tcbs_profile_rhel9_cis_l2_tcvn14423 \
+  --oval-results \
+  --results /tmp/xccdf-results-rhel9-remediated.xml \
+  --results-arf /tmp/arf-rhel9-remediated.xml \
+  --report /tmp/report-rhel9-remediated.html \
+  ssg-rhel9-ds.xml
+```
+
+---
+
+### 3.2. Phương thức 2: Xuất Kịch bản Khắc phục để Review / Dry-run trước khi chạy (Khuyến nghị cho Production)
+Đây là phương thức an toàn nhất cho môi trường Production, cho phép DevOps / SysAdmin kiểm tra (review) toàn bộ nội dung lệnh sẽ can thiệp vào máy chủ trước khi thực thi.
+
+#### A. Xuất Kịch bản Bash Remediation Script (`.sh`)
+```bash
+# 1. Amazon Linux 2023:
+oscap xccdf generate fix \
+  --tailoring-file ssg-al2023-ds-tailoring.xml \
+  --profile xccdf_vn.com.tcbs_profile_al2023_cis_l2_tcvn14423 \
+  --fix-type bash \
+  --output /tmp/remediate-al2023.sh \
+  ssg-al2023-ds.xml
+
+# 2. Ubuntu Linux 24.04:
+oscap xccdf generate fix \
+  --tailoring-file ssg-ubuntu2404-ds-tailoring.xml \
+  --profile xccdf_vn.com.tcbs_profile_ubuntu2404_cis_l2_tcvn14423 \
+  --fix-type bash \
+  --output /tmp/remediate-ubuntu2404.sh \
+  ssg-ubuntu2404-ds.xml
+
+# 3. RHEL 8:
+oscap xccdf generate fix \
+  --tailoring-file ssg-rhel8-ds-tailoring.xml \
+  --profile xccdf_vn.com.tcbs_profile_rhel8_cis_l2_tcvn14423 \
+  --fix-type bash \
+  --output /tmp/remediate-rhel8.sh \
+  ssg-rhel8-ds.xml
+
+# 4. RHEL 9:
+oscap xccdf generate fix \
+  --tailoring-file ssg-rhel9-ds-tailoring.xml \
+  --profile xccdf_vn.com.tcbs_profile_rhel9_cis_l2_tcvn14423 \
+  --fix-type bash \
+  --output /tmp/remediate-rhel9.sh \
+  ssg-rhel9-ds.xml
+
+# Thao tác Review và Thực thi Bash Script:
+less /tmp/remediate-<os>.sh        # Kiểm tra nội dung script
+sudo bash /tmp/remediate-<os>.sh   # Chạy khắc phục
+```
+
+#### B. Xuất Kịch bản Ansible Playbook (`.yml`)
+```bash
+# 1. Amazon Linux 2023:
+oscap xccdf generate fix \
+  --tailoring-file ssg-al2023-ds-tailoring.xml \
+  --profile xccdf_vn.com.tcbs_profile_al2023_cis_l2_tcvn14423 \
+  --fix-type ansible \
+  --output /tmp/remediate-al2023.yml \
+  ssg-al2023-ds.xml
+
+# 2. Ubuntu Linux 24.04:
+oscap xccdf generate fix \
+  --tailoring-file ssg-ubuntu2404-ds-tailoring.xml \
+  --profile xccdf_vn.com.tcbs_profile_ubuntu2404_cis_l2_tcvn14423 \
+  --fix-type ansible \
+  --output /tmp/remediate-ubuntu2404.yml \
+  ssg-ubuntu2404-ds.xml
+
+# 3. RHEL 8:
+oscap xccdf generate fix \
+  --tailoring-file ssg-rhel8-ds-tailoring.xml \
+  --profile xccdf_vn.com.tcbs_profile_rhel8_cis_l2_tcvn14423 \
+  --fix-type ansible \
+  --output /tmp/remediate-rhel8.yml \
+  ssg-rhel8-ds.xml
+
+# 4. RHEL 9:
+oscap xccdf generate fix \
+  --tailoring-file ssg-rhel9-ds-tailoring.xml \
+  --profile xccdf_vn.com.tcbs_profile_rhel9_cis_l2_tcvn14423 \
+  --fix-type ansible \
+  --output /tmp/remediate-rhel9.yml \
+  ssg-rhel9-ds.xml
+
+# Thao tác chạy qua Ansible cục bộ hoặc phát tán qua CI/CD / AWX:
+ansible-playbook -i localhost, -c local /tmp/remediate-<os>.yml
+```
+
+---
+
+### 3.3. Phương thức 3: Khắc phục Ngoại tuyến từ Kết quả Quét Trước đó (`oscap xccdf remediate`)
+Nếu đã có tệp kết quả quét `/tmp/xccdf-results-<os>.xml` từ bước đánh giá, có thể thực hiện khắc phục trực tiếp trên kết quả đó mà không cần đánh giá lại toàn bộ từ đầu:
+```bash
+oscap xccdf remediate \
+  --results /tmp/xccdf-remediation-results-<os>.xml \
+  /tmp/xccdf-results-<os>.xml
+```
+
+---
+
+### 3.4. Quy trình Khuyến nghị & Lưu ý Vận hành An toàn
+1. **Sao lưu trước khi khắc phục (Snapshot / Backup)**: Luôn chụp snapshot ổ đĩa (AWS EBS Snapshot hoặc VMware Snapshot) trước khi chạy remediation trên môi trường Production.
+2. **Kiểm tra Lại sau Remediation**: Chạy lại lệnh quét đánh giá thông thường (không có cờ `--remediate`) để xác nhận các quy tắc đã chuyển trạng thái sang `pass` và báo cáo HTML cập nhật 100% tuân thủ:
+   ```bash
+   oscap xccdf eval \
+     --tailoring-file ssg-<os>-ds-tailoring.xml \
+     --profile <tailored_profile_id> \
+     --report /tmp/report-<os>-verified.html \
+     ssg-<os>-ds.xml
+   ```
+3. **Hiệu lực Cấu hình Kernel & Dịch vụ**:
+   - Nạp lại cấu hình sysctl: `sysctl --system`
+   - Khởi động lại các dịch vụ bảo mật nếu có thay đổi: `systemctl restart sshd`, `systemctl restart auditd` (hoặc reboot server nếu quy tắc auditd có cờ bất biến `-e 2`).
+
+---
+
+## 4. Danh mục Profile ID Tra cứu
 
 | Hệ điều hành | Datastream tương ứng | Base CIS L2 Profile ID | Tailored Profile ID |
 | :--- | :--- | :--- | :--- |
