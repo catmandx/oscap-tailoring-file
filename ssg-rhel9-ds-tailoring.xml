@@ -26,8 +26,18 @@
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_passwords_pam_faillock_deny" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_passwords_pam_faillock_even_deny_root_or_root_unlock_time" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_passwords_pam_faillock_unlock_time" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_account_disable_post_pw_expiration" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_accounts_set_post_pw_existing" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_ensure_pam_wheel_group_empty" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_ensure_root_password_configured" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_use_pam_wheel_group_for_su" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_grub2_password" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_ensure_journald_and_rsyslog_not_active_together" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_rsyslog_filecreatemode" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_group_ensure_rsyslog_log_file_configuration" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_rsyslog_files_groupownership" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_rsyslog_files_ownership" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_rsyslog_files_permissions" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_package_systemd-journal-remote_installed" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_socket_systemd-journal-remote_disabled" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_group_network-firewalld" selected="false"/>
@@ -60,6 +70,11 @@
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_dac_modification_lsetxattr" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_dac_modification_removexattr" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_dac_modification_setxattr" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_group_audit_file_deletion_events" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_file_deletion_events_rename" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_file_deletion_events_renameat" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_file_deletion_events_unlink" selected="false"/>
+    <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_file_deletion_events_unlinkat" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_unsuccessful_file_modification_creat" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_unsuccessful_file_modification_ftruncate" selected="false"/>
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_unsuccessful_file_modification_open" selected="false"/>
@@ -68,16 +83,18 @@
     <xccdf:select idref="xccdf_org.ssgproject.content_rule_audit_rules_login_events_faillock" selected="false"/>
     <xccdf:set-value idref="xccdf_org.ssgproject.content_value_cis_banner_text">TCBS / TCEX - CANH BAO: He thong thong tin nay la tai san cua TCBS va TCEX. Khong phan su mien truy cap va su dung. Moi hoat dong tren he thong deu duoc giam sat, ghi nhat ky va bao cao theo quy dinh an toan thong tin. Moi hanh vi vi pham se bi truy cuu trach nhiem phap ly. Authorized users only. Unauthorized access is prohibited. All activity may be monitored and reported.</xccdf:set-value>
     <xccdf:set-value idref="xccdf_org.ssgproject.content_value_dconf_login_banner_contents">TCBS / TCEX - CANH BAO: He thong thong tin nay la tai san cua TCBS va TCEX. Khong phan su mien truy cap va su dung. Moi hoat dong tren he thong deu duoc giam sat, ghi nhat ky va bao cao theo quy dinh an toan thong tin. Moi hanh vi vi pham se bi truy cuu trach nhiem phap ly. Authorized users only. Unauthorized access is prohibited. All activity may be monitored and reported.</xccdf:set-value>
-    <xccdf:set-value idref="xccdf_org.ssgproject.content_value_dconf_login_banner_text">^(TCBS[\s\n]*/[\s\n]*TCEX[\s\n]+-[\s\n]+.*(tai[\s\n]+san[\s\n]+cua[\s\n]+TCBS|Khong[\s\n]+phan[\s\n]+su|phap[\s\n]+ly|Authorized[\s\n]+users)[\s\S]*|Authorized[\s\n]+users[\s\n]+only\.[\s\n]+All[\s\n]+activity[\s\n]+may[\s\n]+be[\s\n]+monitored[\s\n]+and[\s\n]+reported\.)$</xccdf:set-value>
+    <xccdf:set-value idref="xccdf_org.ssgproject.content_value_dconf_login_banner_text">TCBS / TCEX - CANH BAO: He thong thong tin nay la tai san cua TCBS va TCEX. Khong phan su mien truy cap va su dung. Moi hoat dong tren he thong deu duoc giam sat, ghi nhat ky va bao cao theo quy dinh an toan thong tin. Moi hanh vi vi pham se bi truy cuu trach nhiem phap ly. Authorized users only. Unauthorized access is prohibited. All activity may be monitored and reported.</xccdf:set-value>
     <xccdf:set-value idref="xccdf_org.ssgproject.content_value_login_banner_contents">TCBS / TCEX - CANH BAO: He thong thong tin nay la tai san cua TCBS va TCEX. Khong phan su mien truy cap va su dung. Moi hoat dong tren he thong deu duoc giam sat, ghi nhat ky va bao cao theo quy dinh an toan thong tin. Moi hanh vi vi pham se bi truy cuu trach nhiem phap ly. Authorized users only. Unauthorized access is prohibited. All activity may be monitored and reported.</xccdf:set-value>
-    <xccdf:set-value idref="xccdf_org.ssgproject.content_value_login_banner_text">^(TCBS[\s\n]*/[\s\n]*TCEX[\s\n]+-[\s\n]+.*(tai[\s\n]+san[\s\n]+cua[\s\n]+TCBS|Khong[\s\n]+phan[\s\n]+su|phap[\s\n]+ly|Authorized[\s\n]+users)[\s\S]*|Authorized[\s\n]+users[\s\n]+only\.[\s\n]+All[\s\n]+activity[\s\n]+may[\s\n]+be[\s\n]+monitored[\s\n]+and[\s\n]+reported\.)$</xccdf:set-value>
+    <xccdf:set-value idref="xccdf_org.ssgproject.content_value_login_banner_text">TCBS / TCEX - CANH BAO: He thong thong tin nay la tai san cua TCBS va TCEX. Khong phan su mien truy cap va su dung. Moi hoat dong tren he thong deu duoc giam sat, ghi nhat ky va bao cao theo quy dinh an toan thong tin. Moi hanh vi vi pham se bi truy cuu trach nhiem phap ly. Authorized users only. Unauthorized access is prohibited. All activity may be monitored and reported.</xccdf:set-value>
     <xccdf:set-value idref="xccdf_org.ssgproject.content_value_motd_banner_contents">TCBS / TCEX - CANH BAO: He thong thong tin nay la tai san cua TCBS va TCEX. Khong phan su mien truy cap va su dung. Moi hoat dong tren he thong deu duoc giam sat, ghi nhat ky va bao cao theo quy dinh an toan thong tin. Moi hanh vi vi pham se bi truy cuu trach nhiem phap ly. Authorized users only. Unauthorized access is prohibited. All activity may be monitored and reported.</xccdf:set-value>
-    <xccdf:set-value idref="xccdf_org.ssgproject.content_value_motd_banner_text">^(TCBS[\s\n]*/[\s\n]*TCEX[\s\n]+-[\s\n]+.*(tai[\s\n]+san[\s\n]+cua[\s\n]+TCBS|Khong[\s\n]+phan[\s\n]+su|phap[\s\n]+ly|Authorized[\s\n]+users)[\s\S]*|Authorized[\s\n]+users[\s\n]+only\.[\s\n]+All[\s\n]+activity[\s\n]+may[\s\n]+be[\s\n]+monitored[\s\n]+and[\s\n]+reported\.)$</xccdf:set-value>
+    <xccdf:set-value idref="xccdf_org.ssgproject.content_value_motd_banner_text">TCBS / TCEX - CANH BAO: He thong thong tin nay la tai san cua TCBS va TCEX. Khong phan su mien truy cap va su dung. Moi hoat dong tren he thong deu duoc giam sat, ghi nhat ky va bao cao theo quy dinh an toan thong tin. Moi hanh vi vi pham se bi truy cuu trach nhiem phap ly. Authorized users only. Unauthorized access is prohibited. All activity may be monitored and reported.</xccdf:set-value>
     <xccdf:set-value idref="xccdf_org.ssgproject.content_value_remote_login_banner_contents">TCBS / TCEX - CANH BAO: He thong thong tin nay la tai san cua TCBS va TCEX. Khong phan su mien truy cap va su dung. Moi hoat dong tren he thong deu duoc giam sat, ghi nhat ky va bao cao theo quy dinh an toan thong tin. Moi hanh vi vi pham se bi truy cuu trach nhiem phap ly. Authorized users only. Unauthorized access is prohibited. All activity may be monitored and reported.</xccdf:set-value>
-    <xccdf:set-value idref="xccdf_org.ssgproject.content_value_remote_login_banner_text">^(TCBS[\s\n]*/[\s\n]*TCEX[\s\n]+-[\s\n]+.*(tai[\s\n]+san[\s\n]+cua[\s\n]+TCBS|Khong[\s\n]+phan[\s\n]+su|phap[\s\n]+ly|Authorized[\s\n]+users)[\s\S]*|Authorized[\s\n]+users[\s\n]+only\.[\s\n]+All[\s\n]+activity[\s\n]+may[\s\n]+be[\s\n]+monitored[\s\n]+and[\s\n]+reported\.)$</xccdf:set-value>
+    <xccdf:set-value idref="xccdf_org.ssgproject.content_value_remote_login_banner_text">TCBS / TCEX - CANH BAO: He thong thong tin nay la tai san cua TCBS va TCEX. Khong phan su mien truy cap va su dung. Moi hoat dong tren he thong deu duoc giam sat, ghi nhat ky va bao cao theo quy dinh an toan thong tin. Moi hanh vi vi pham se bi truy cuu trach nhiem phap ly. Authorized users only. Unauthorized access is prohibited. All activity may be monitored and reported.</xccdf:set-value>
     <xccdf:set-value idref="xccdf_org.ssgproject.content_value_var_password_pam_unix_remember">10</xccdf:set-value>
     <xccdf:set-value idref="xccdf_org.ssgproject.content_value_var_password_pam_remember">10</xccdf:set-value>
     <xccdf:set-value idref="xccdf_org.ssgproject.content_value_var_accounts_maximum_age_login_defs">60</xccdf:set-value>
-    <xccdf:set-value idref="xccdf_org.ssgproject.content_value_var_selinux_state">permissive</xccdf:set-value>
+    <xccdf:set-value idref="xccdf_org.ssgproject.content_value_var_auditd_max_log_file">100</xccdf:set-value>
+    <xccdf:set-value idref="xccdf_org.ssgproject.content_value_var_auditd_max_log_file_action">rotate</xccdf:set-value>
+    <xccdf:set-value idref="xccdf_org.ssgproject.content_value_var_auditd_num_logs">50</xccdf:set-value>
   </xccdf:Profile>
 </xccdf:Tailoring>
