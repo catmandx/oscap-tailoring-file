@@ -154,32 +154,45 @@ oscap xccdf eval \
 
 ### 3.2. Phương thức 2: Xuất Kịch bản Khắc phục CHỈ CHO CÁC CHECK BỊ FAIL (Khuyến nghị Chuẩn Production)
 Để kiểm soát tuyệt đối các thay đổi trên máy chủ Production, quy trình chuẩn gồm 2 bước:
-1. **Bước 1**: Quét hệ thống và lưu kết quả ra file XML (`/tmp/xccdf-results-<os>.xml` như hướng dẫn ở Mục 2).
-2. **Bước 2**: Truyền file kết quả `xccdf-results-<os>.xml` vào lệnh `generate fix`. OpenSCAP sẽ **CHỈ trích xuất các đoạn fix cho đúng những quy tắc có kết quả `fail`** trong phiên quét đó!
+1. **Bước 1**: Quét hệ thống và lưu kết quả ra file XML (`/tmp/xccdf-results-<os>.xml` qua cờ `--results`, **không dùng file ARF**).
+2. **Bước 2**: Truyền file kết quả cùng **Tailoring file** và cờ `--result-id ""` vào lệnh `generate fix`. OpenSCAP sẽ **CHỈ trích xuất các đoạn fix cho đúng những quy tắc có kết quả `fail`** trong phiên quét đó!
+
+> [!IMPORTANT]
+> **2 Tham số Bắt buộc khi xuất Fix cho Custom Tailoring Profile:**
+> 1. `--tailoring-file ssg-<os>-ds-tailoring.xml`: **Bắt buộc**. Do Profile tuân thủ của TCBS nằm trong Tailoring file, nếu thiếu cờ này, OpenSCAP sẽ báo lỗi `Could not find Profile/@id="..." to build policy`.
+> 2. `--result-id ""`: **Bắt buộc**. Cờ này chỉ định cho OpenSCAP đọc `TestResult` từ file scan thay vì coi file đó là Benchmark raw. Nếu thiếu cờ này, OpenSCAP sẽ sinh ra file script rỗng (chỉ có header ~24 dòng) do hiểu nhầm sang profile `(null)`. Truyền chuỗi rỗng `""` OpenSCAP sẽ tự động chọn kết quả quét gần nhất trong file.
 
 #### A. Xuất Bash Script CHỈ cho các Check bị Fail:
 ```bash
 # 1. Amazon Linux 2023:
 oscap xccdf generate fix \
   --fix-type bash \
+  --tailoring-file ssg-al2023-ds-tailoring.xml \
+  --result-id "" \
   --output /tmp/remediate-failed-only-al2023.sh \
   /tmp/xccdf-results-al2023.xml
 
 # 2. Ubuntu Linux 24.04:
 oscap xccdf generate fix \
   --fix-type bash \
+  --tailoring-file ssg-ubuntu2404-ds-tailoring.xml \
+  --result-id "" \
   --output /tmp/remediate-failed-only-ubuntu2404.sh \
   /tmp/xccdf-results-ubuntu2404.xml
 
 # 3. RHEL 8:
 oscap xccdf generate fix \
   --fix-type bash \
+  --tailoring-file ssg-rhel8-ds-tailoring.xml \
+  --result-id "" \
   --output /tmp/remediate-failed-only-rhel8.sh \
   /tmp/xccdf-results-rhel8.xml
 
 # 4. RHEL 9:
 oscap xccdf generate fix \
   --fix-type bash \
+  --tailoring-file ssg-rhel9-ds-tailoring.xml \
+  --result-id "" \
   --output /tmp/remediate-failed-only-rhel9.sh \
   /tmp/xccdf-results-rhel9.xml
 
@@ -193,24 +206,32 @@ sudo bash /tmp/remediate-failed-only-<os>.sh   # Thực thi áp dụng
 # 1. Amazon Linux 2023:
 oscap xccdf generate fix \
   --fix-type ansible \
+  --tailoring-file ssg-al2023-ds-tailoring.xml \
+  --result-id "" \
   --output /tmp/remediate-failed-only-al2023.yml \
   /tmp/xccdf-results-al2023.xml
 
 # 2. Ubuntu Linux 24.04:
 oscap xccdf generate fix \
   --fix-type ansible \
+  --tailoring-file ssg-ubuntu2404-ds-tailoring.xml \
+  --result-id "" \
   --output /tmp/remediate-failed-only-ubuntu2404.yml \
   /tmp/xccdf-results-ubuntu2404.xml
 
 # 3. RHEL 8:
 oscap xccdf generate fix \
   --fix-type ansible \
+  --tailoring-file ssg-rhel8-ds-tailoring.xml \
+  --result-id "" \
   --output /tmp/remediate-failed-only-rhel8.yml \
   /tmp/xccdf-results-rhel8.xml
 
 # 4. RHEL 9:
 oscap xccdf generate fix \
   --fix-type ansible \
+  --tailoring-file ssg-rhel9-ds-tailoring.xml \
+  --result-id "" \
   --output /tmp/remediate-failed-only-rhel9.yml \
   /tmp/xccdf-results-rhel9.xml
 
@@ -221,17 +242,15 @@ ansible-playbook -i localhost, -c local /tmp/remediate-failed-only-<os>.yml
 > [!TIP]
 > **Khác biệt khi truyền Datastream XML vs Results XML**:
 > - Nếu truyền file Datastream gốc (`generate fix ... ssg-<os>-ds.xml`): OpenSCAP sẽ xuất fix cho **toàn bộ profile** (kể cả những rule hệ thống đã pass). Dùng khi muốn build image sạch từ đầu.
-> - Nếu truyền file kết quả scan (`generate fix ... xccdf-results.xml`): OpenSCAP sẽ **CHỈ xuất fix cho các quy tắc đang bị `fail`** trên máy chủ mục tiêu.
+> - Nếu truyền file kết quả scan (`generate fix ... xccdf-results.xml` kèm `--result-id ""` và `--tailoring-file`): OpenSCAP sẽ **CHỈ xuất fix cho các quy tắc đang bị `fail`** trên máy chủ mục tiêu.
 
 ---
 
-### 3.3. Phương thức 3: Khắc phục Ngoại tuyến từ Kết quả Quét Trước đó (`oscap xccdf remediate`)
-Nếu đã có tệp kết quả quét `/tmp/xccdf-results-<os>.xml` từ bước đánh giá, có thể thực hiện khắc phục trực tiếp trên kết quả đó. OpenSCAP sẽ **chỉ chạy fix cho các mục `fail`** trong file XML này mà không cần đánh giá lại toàn bộ hệ thống từ đầu:
-```bash
-oscap xccdf remediate \
-  --results /tmp/xccdf-remediation-results-<os>.xml \
-  /tmp/xccdf-results-<os>.xml
-```
+### 3.3. Lưu ý về Lệnh Khắc phục Ngoại tuyến (`oscap xccdf remediate`)
+> [!WARNING]
+> Subcommand `oscap xccdf remediate` trong OpenSCAP hiện tại **không hỗ trợ cờ `--tailoring-file`**. Vì vậy, khi thực thi trên file kết quả scan của Custom Tailoring Profile, lệnh sẽ báo lỗi `Could not find Profile/@id="..." to build policy`.
+> 
+> **Khuyến nghị**: Đối với môi trường sử dụng Tailoring Profile của TCBS, **luôn sử dụng Phương thức 2 (`oscap xccdf generate fix`)** ở trên để sinh script Bash/Ansible chỉ cho các check fail và thực thi. Đây là giải pháp an toàn, trong suốt và đã được kiểm thử thực tế 100%.
 
 ---
 
